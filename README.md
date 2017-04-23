@@ -16,7 +16,6 @@ Yet another approach to generate simple and slim CHANGELOG file.
 
     optional arguments:
       -h, --help         show this help message and exit
-      --token TOKEN      Github token, not required but helps to lift API
-                         limitations
-      --project PROJECT  Github project name (<user-or-organization>/<repo>)
+      --token TOKEN      Github token
+      --project PROJECT  Github project (<owner>/<repo>)
       --with-unreleased  Include unreleased merged pull requests

@@ -11,13 +11,13 @@ def parse_args():
     parser.add_argument(
         '--token',
         type=str,
-        help='Github token, not required but helps to lift API limitations'
+        help='Github token'
     )
     parser.add_argument(
         '--project',
         type=str,
         required=True,
-        help='Github project name (<user-or-organization>/<repo>)'
+        help='Github project (<owner>/<repo>)'
     )
     parser.add_argument(
         '--with-unreleased',
