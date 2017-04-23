@@ -1,12 +1,13 @@
-import sortedcontainers
-
-
 class Timeline(object):
     def __init__(self):
-        self.events = sortedcontainers.SortedListWithKey(key=lambda e: e.at)
+        self._events = []
 
     def add(self, event):
-        self.events.add(event)
+        self._events.append(event)
+
+    @property
+    def events(self):
+        return sorted(self._events, key=lambda e: e.at)
 
 
 class Event(object):

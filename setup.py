@@ -21,7 +21,6 @@ setup(
     license='MIT',
     author='Alexander Shchapov',
     author_email='alexander.shchapov@gmail.com',
-    install_requires=['sortedcontainers'],
     packages=find_packages(),
     package_data={'': ['LICENSE', 'README.md']},
     include_package_data=True,

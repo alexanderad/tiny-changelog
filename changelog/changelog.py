@@ -9,12 +9,12 @@ def parse_args():
         description='Generate CHANGELOG file.'
     )
     parser.add_argument(
-        '--token',
+        '-t', '--token',
         type=str,
         help='Github token'
     )
     parser.add_argument(
-        '--project',
+        '-p', '--project',
         type=str,
         required=True,
         help='Github project (<owner>/<repo>)'

@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from .printer import Printer
 
 
@@ -8,8 +6,7 @@ class MarkdownPrinter(Printer):
         return '# Change Log'
 
     def footer(self):
-        return '_Generated on {}_'.format(
-            datetime.utcnow().replace(microsecond=0).isoformat(sep=' '))
+        return ''
 
     def break_line(self):
         return '  '
