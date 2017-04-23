@@ -9,21 +9,21 @@ def parse_args():
         description='Generate CHANGELOG file.'
     )
     parser.add_argument(
-        '--with-unreleased',
-        default=False,
-        action='store_true',
-        help='Include unreleased merged pull requests'
-    )
-    parser.add_argument(
-        '-t', '--token',
+        '--token',
         type=str,
         help='Github token, not required but helps to lift API limitations'
     )
     parser.add_argument(
-        '-p', '--project',
+        '--project',
         type=str,
         required=True,
         help='Github project name (<user-or-organization>/<repo>)'
+    )
+    parser.add_argument(
+        '--with-unreleased',
+        default=False,
+        action='store_true',
+        help='Include unreleased merged pull requests'
     )
 
     return parser.parse_args()
