@@ -4,7 +4,7 @@ import re
 from setuptools import setup, find_packages
 
 
-with open('README.md') as f:
+with open('README.rst') as f:
     readme = f.read()
 
 version_regex = re.compile("VERSION\s*=\s*'(.*?)'$")
@@ -22,7 +22,7 @@ setup(
     author='Alexander Shchapov',
     author_email='alexander.shchapov@gmail.com',
     packages=find_packages(),
-    package_data={'': ['LICENSE', 'README.md']},
+    package_data={'': ['LICENSE', 'README.rst']},
     include_package_data=True,
     entry_points={
         'console_scripts': [

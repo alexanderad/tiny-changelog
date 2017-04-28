@@ -1,12 +1,22 @@
-# Tiny Changelog
+Tiny Changelog
+==============
+.. image:: https://img.shields.io/pypi/v/tiny-changelog.svg
+    :target: https://pypi.python.org/pypi/tiny-changelog
+
 
 Yet another approach to generate simple and slim CHANGELOG file.
 
-## Install
+Install
+-------
+
+.. code-block:: bash
 
     pip install tiny-changelog
 
-## Usage
+Usage
+-----
+
+.. code-block:: bash
 
     usage: tiny-changelog [-h] [-t TOKEN] -p PROJECT [-s START_DATE] [-o OUTPUT]
                           [--with-unreleased]
