@@ -28,16 +28,21 @@ def parse_args():
         help='Github project (<owner>/<repo>)'
     )
     parser.add_argument(
+        '-s', '--start-date',
+        help='List entries starting as early as YYYY-MM-DD',
+        default='1970-01-01',
+        type=date_validator
+    )
+    parser.add_argument(
+        '-o', '--output',
+        help='Output file, defaults to CHANGELOG.md',
+        default='CHANGELOG.md'
+    )
+    parser.add_argument(
         '--with-unreleased',
         default=False,
         action='store_true',
         help='Include unreleased merged pull requests'
-    )
-    parser.add_argument(
-        '--start-at',
-        help='List entries starting as early as YYYY-MM-DD',
-        default='1970-01-01',
-        type=date_validator
     )
 
     return parser.parse_args()
@@ -45,10 +50,11 @@ def parse_args():
 
 def main():
     args = parse_args()
-    timeline = GithubFeed(args.project, args.token).fetch(args.start_at)
+    timeline = GithubFeed(args.project, args.token).fetch(args.start_date)
 
     printer = MarkdownPrinter(timeline, with_unreleased=args.with_unreleased)
-    printer.pretty_print()
+    printer.print_to_file(args.output)
+
 
 if __name__ == '__main__':
     main()

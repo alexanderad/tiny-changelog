@@ -1,3 +1,5 @@
+import io
+
 from ..timeline import Tag, PullRequest, UnreleasedTag
 
 
@@ -24,3 +26,10 @@ class Printer(object):
         items = reversed([item for item in self._walk_timeline()])
         for tag, pull_requests in items:
             yield tag, pull_requests
+
+    def print_to_file(self, filename):
+        with io.open(filename, 'w', encoding='utf-8') as f:
+            for line in self.iteritems():
+                if isinstance(line, str):
+                    line = line.decode('utf-8')
+                f.write(line)
