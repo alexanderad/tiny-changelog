@@ -29,6 +29,15 @@ class Tag(Event):
         self.url = url
         super(Tag, self).__init__(at)
 
+    @property
+    def as_dict(self):
+        return dict(
+            name=self.name,
+            url=self.url,
+            at=self.at,
+            pretty_at=self.pretty_at
+        )
+
     def __repr__(self):
         return 'Tag {} ({})'.format(self.name, self.pretty_at)
 
@@ -42,6 +51,17 @@ class PullRequest(Event):
         self.title = title
         self.url = url
         super(PullRequest, self).__init__(at)
+
+    @property
+    def as_dict(self):
+        return dict(
+            number=self.number,
+            author=self.author,
+            title=self.title,
+            url=self.url,
+            at=self.at,
+            pretty_at=self.pretty_at
+        )
 
     def __repr__(self):
         return 'PR #{}: ({})'.format(self.number, self.title, self.pretty_at)

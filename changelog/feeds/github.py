@@ -78,7 +78,7 @@ class GithubFeed(Feed):
 
         return rels
 
-    def _fetch_all_tags(self):
+    def _fetch_all_tags(self, start_at=None):
         tags_url = '{}/{}'.format(self._api_url, 'git/refs/tags')
         tags_sha = [t['object']['sha'] for t in self._github_request(tags_url)]
         tag_info_urls = [
@@ -86,15 +86,19 @@ class GithubFeed(Feed):
             for sha in tags_sha
         ]
         for tag in self._github_request_in_pull(tag_info_urls):
+            at = self._parse_datetime(tag['tagger']['date'])
+            if at < start_at:
+                continue
+
             self._timeline.add(
                 Tag(
                     name=tag['tag'],
                     url=self._release_url(tag['tag']),
-                    at=self._parse_datetime(tag['tagger']['date'])
+                    at=at
                 )
             )
 
-    def _fetch_all_pull_requests(self):
+    def _fetch_all_pull_requests(self, start_at=None):
         pull_requests_url = '{}/{}'.format(
             self._api_url, 'pulls?state=closed&per_page=10')
 
@@ -103,17 +107,21 @@ class GithubFeed(Feed):
                 # closed non-merged PR
                 continue
 
+            at = self._parse_datetime(pr['merged_at'])
+            if at < start_at:
+                continue
+
             self._timeline.add(
                 PullRequest(
                     number=pr['number'],
                     author=pr['user']['login'],
                     title=pr['title'],
                     url=self._pull_request_url(pr['number']),
-                    at=self._parse_datetime(pr['merged_at'])
+                    at=at
                 )
             )
 
-    def fetch(self):
-        self._fetch_all_tags()
-        self._fetch_all_pull_requests()
+    def fetch(self, start_at=None):
+        self._fetch_all_tags(start_at)
+        self._fetch_all_pull_requests(start_at)
         return self._timeline

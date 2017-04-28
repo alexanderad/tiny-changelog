@@ -2,8 +2,9 @@ from ..timeline import Tag, PullRequest, UnreleasedTag
 
 
 class Printer(object):
-    def __init__(self, timeline, with_unreleased=False):
+    def __init__(self, timeline, start_at=None, with_unreleased=False):
         self.timeline = timeline
+        self.start_at = start_at
         self.with_unreleased = with_unreleased
 
     def _walk_timeline(self):
