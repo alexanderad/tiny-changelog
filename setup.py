@@ -29,12 +29,12 @@ setup(
             'tiny-changelog=changelog.changelog:main'
         ]
     },
-    classifiers=(
+    classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 2.7'
-    ),
+    ],
 )
 
