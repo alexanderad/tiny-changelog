@@ -16,7 +16,7 @@ class GithubFeed(Feed):
     def __init__(self, project, token=None):
         self._project = project
         self._token = token
-        self._timeline = Timeline()
+        self._timeline = Timeline(self)
 
     @property
     def _headers(self):
@@ -31,14 +31,22 @@ class GithubFeed(Feed):
         return '{}/repos/{}'.format(self.API_ROOT_URL, self._project)
 
     @property
-    def _project_url(self):
+    def project_url(self):
         return '{}/{}'.format(self.UI_ROOT_URL, self._project)
 
-    def _pull_request_url(self, number):
-        return '{}/pull/{}'.format(self._project_url, number)
+    def pull_request_url(self, number):
+        return '{}/pull/{}'.format(self.project_url, number)
 
-    def _release_url(self, tag):
-        return '{}/releases/tag/{}'.format(self._project_url, tag)
+    def user_url(self, user):
+        return '{}/{}'.format(self.UI_ROOT_URL, user)
+
+    def release_url(self, tag):
+        return '{}/releases/tag/{}'.format(self.project_url, tag)
+
+    def compare_url(self, base, compare):
+        return '{}/compare/{}...{}'.format(
+            self.project_url, base, compare
+        )
 
     def _github_request(self, url):
         response = self._request(url, self._headers)
@@ -93,7 +101,7 @@ class GithubFeed(Feed):
             self._timeline.add(
                 Tag(
                     name=tag['tag'],
-                    url=self._release_url(tag['tag']),
+                    url=self.release_url(tag['tag']),
                     at=at
                 )
             )
@@ -116,7 +124,7 @@ class GithubFeed(Feed):
                     number=pr['number'],
                     author=pr['user']['login'],
                     title=pr['title'],
-                    url=self._pull_request_url(pr['number']),
+                    url=self.pull_request_url(pr['number']),
                     at=at
                 )
             )

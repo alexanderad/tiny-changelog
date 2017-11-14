@@ -1,5 +1,6 @@
 class Timeline(object):
-    def __init__(self):
+    def __init__(self, feed):
+        self.feed = feed
         self._events = []
 
     def add(self, event):
@@ -40,6 +41,7 @@ class Tag(Event):
 
     def __repr__(self):
         return 'Tag {} ({})'.format(self.name, self.pretty_at)
+
 
 UnreleasedTag = Tag('Unreleased')
 
